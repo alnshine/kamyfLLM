@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, send_file
+from flask import Flask, request
 from model import *
 
 app = Flask(__name__)
@@ -9,7 +9,14 @@ def process_json():
         try:
             json_data = request.json
             response_data = model(json_data)
-            # Возвращаем созданный JSON-файл
             return response_data, 200
-        except Exception as e:
-            return jsonify({"error": str(e)}), 400
+        except:
+            data = {
+            "response": {
+                "retelling": "не получилось обработать сообщения",
+                "time-start": "2024-03-17T08:30:45.123456789Z",
+                "time-end": "2024-03-17T08:50:00.890123456Z",
+                "chat-id": 0
+                }
+            }
+            return data
